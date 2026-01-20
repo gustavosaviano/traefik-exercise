@@ -1,0 +1,37 @@
+persistence:
+  enabled: true
+  name: data
+  accessMode: ReadWriteOnce
+  size: 10Mi
+  path: /data
+
+additionalArguments:
+  - "--certificatesresolvers.myresolver.acme.storage=/data/acme.json"
+  - "--certificatesresolvers.myresolver.acme.email=gustavosaviano@gmail.com"
+  - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+  - "--tracing.otlp.grpc.endpoint=jaeger.default.svc.cluster.local:4317"
+  - "--tracing.otlp.grpc.insecure=true"
+
+logs:
+  general:
+    level: DEBUG
+  access:
+    enabled: true
+    format: json
+    fields:
+      general:
+        defaultmode: keep
+      headers:
+        defaultmode: keep
+
+metrics:
+  prometheus:
+    enabled: true
+
+ports:
+  metrics:
+    expose:
+      default: true
+    exposedPort: 9100
+    port: 9100
+    protocol: TCP
