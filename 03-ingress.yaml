@@ -17,6 +17,7 @@ spec:
     kind: Rule
     middlewares:
       - name: foobar-api-auth
+      - name: rate-limit
     services:
     - name: foobar-api-svc
       port: 80
